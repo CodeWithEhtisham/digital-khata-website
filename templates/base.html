@@ -1,32 +1,33 @@
 <!-- templates/_base.html -->
 
-{% load compress %}
+
 {% load static %}
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Django + Tailwind CSS + Flowbite</title>
+    <meta charset="utf-8">
 
-    {% compress css %}
-    <link rel="stylesheet" href="{% static 'src/output.css' %}">
-    {% endcompress %}
+    <title>Digital Khata</title>
+
+    {% include 'stylesheet.html' %}
+    
 
 </head>
 
-<body class="bg-green-50">
-
-
-    <div class="container mx-auto mt-4">
+<body class="bg-gray-50 dark:bg-gray-800" data-new-gr-c-s-check-loaded="14.1215.0" data-gr-ext-installed="" cz-shortcut-listen="true"> 
+    
+    {% include 'nav.html' %}
+    <div class="flex pt-16 overflow-hidden bg-gray-50 dark:bg-gray-900">
+    {% include 'aside.html' %}
+    <div class="fixed inset-0 z-10 hidden bg-gray-900/50 dark:bg-gray-900/90" id="sidebarBackdrop"></div>
+    <div class="relative w-full h-full overflow-y-auto bg-gray-50 lg:ml-64 dark:bg-gray-900">
         {% block content %}
         {% endblock content %}
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
+</div>
+    {% include 'scripts.html' %}
 </body>
 
 </html>

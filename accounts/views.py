@@ -11,3 +11,8 @@ class SignUpView(TemplateView):
     template_name = "accounts/sign-up.html"
     def get(self, request, *args, **kwargs):
         return render(request, self.template_name)
+    
+class ProfileView(TemplateView):
+    template_name = "accounts/profile.html"
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name) 

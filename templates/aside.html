@@ -51,7 +51,7 @@
       </li>
       <li class="nav-item">
         <a class="nav-link text-dark" href="{% url 'profile' %}">
-          <!-- <i class="material-symbols-rounded opacity-5">person</i> -->
+          <i class="material-symbols-rounded opacity-5">person</i>
           <span class="nav-link-text ms-1">Profile</span>
         </a>
       </li>
@@ -71,7 +71,7 @@
   </div>
   <div class="sidenav-footer position-absolute w-100 bottom-0 ">
     <div class="mx-3">
-        <a class="btn bg-gradient-dark w-100" href="#" type="button">Logout</a>
+        <a class="btn bg-gradient-dark w-100" href="{% url 'signout' %}">Logout</a>
     </div>
   </div>
 </aside>

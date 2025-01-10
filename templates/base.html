@@ -1,30 +1,20 @@
-<!-- templates/_base.html -->
-
-{% load compress %} {% load static %}
-
-<!doctype html>
+{% load static %}
+<!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
 
-        <title>Digital Khata</title>
+{% include 'stylesheet.html' %}
+<body class="g-sidenav-show  bg-gray-100">
+  {% include 'aside.html' %}
 
-        {% include 'stylesheet.html' %}
-    </head>
+  
+  {% block content %}
+  {% endblock content %}
 
-    <body
-        class="bg-gray-50 dark:bg-gray-800"
-        data-new-gr-c-s-check-loaded="14.1215.0"
-        data-gr-ext-installed=""
-        cz-shortcut-listen="true"
-    >
-        <div class="flex pt-16 overflow-hidden bg-gray-50 dark:bg-gray-900">
-            <div
-                class="relative w-full h-full overflow-y-auto bg-gray-50 dark:bg-gray-900"
-            >
-                {% block content %} {% endblock content %}
-            </div>
-        </div>
-        {% include 'scripts.html' %}
-    </body>
+  {% include 'scripts.html' %}
+  {% block javascripts %}
+  {% endblock javascripts %}
+
+
 </html>
+</body>
+        

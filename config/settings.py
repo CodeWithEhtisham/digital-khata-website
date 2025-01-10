@@ -37,7 +37,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'compressor',
     'accounts',
     'roznamcha',
 ]
@@ -119,14 +118,20 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
-
+import os
 STATIC_URL = 'static/'
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, "static/"),
+)
 
-COMPRESS_ROOT = BASE_DIR / 'static'
+# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-COMPRESS_ENABLED = True
+# Default primary key field type
+# https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
+# os.makedirs(os.path.join(BASE_DIR, "media"), exist_ok=True)
 
-STATICFILES_FINDERS = ('compressor.finders.CompressorFinder',)
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = "/media/"
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 

@@ -8,3 +8,13 @@ class DashboardView(TemplateView):
         context = super().get_context_data(**kwargs)
         context['title'] = 'DashboardView'
         return context
+    
+class Roznamcha(TemplateView):
+    template_name = "rozmancha/roznamcha.html"
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name)
+    
+class AccountsView(TemplateView):
+    template_name = "rozmancha/accounts.html"
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name)

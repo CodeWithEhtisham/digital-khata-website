@@ -1,2 +1,5 @@
-django 
-djangorestframework
+django==5.2.7
+djangorestframework==3.16.1
+Pillow==10.4.0  # For image handling if needed in future
+reportlab==4.2.2  # For PDF generation (matching Digital-Khata print functionality)
+openpyxl==3.1.2  # For Excel export/import functionality

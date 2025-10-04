@@ -1,0 +1,114 @@
+{% extends '../base.html'%}
+{% load static %}
+
+{% block content %}
+<main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+    <!-- Navbar -->
+    {% include '../header.html'%}
+    <!-- End Navbar -->
+    <div class="container-fluid py-4">
+        <div class="row">
+            <div class="col-12">
+                <div class="card my-4">
+                    <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                        <div class="bg-gradient-warning shadow-warning border-radius-lg pt-4 pb-3">
+                            <h6 class="text-white text-capitalize ps-3">Update Roznamcha Entry</h6>
+                        </div>
+                    </div>
+                    <div class="card-body px-0 pb-2">
+                        <div class="row">
+                            <div class="col-md-10 mx-auto">
+                                <form method="post">
+                                    {% csrf_token %}
+                                    
+                                    {% if form.non_field_errors %}
+                                        <div class="alert alert-danger" role="alert">
+                                            {{ form.non_field_errors }}
+                                        </div>
+                                    {% endif %}
+                                    
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="input-group input-group-outline mb-3">
+                                                <label class="form-label">{{ form.account.label }}</label>
+                                                {{ form.account }}
+                                            </div>
+                                            {% if form.account.errors %}
+                                                <div class="text-danger text-sm">{{ form.account.errors }}</div>
+                                            {% endif %}
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="input-group input-group-outline mb-3">
+                                                <label class="form-label">{{ form.date.label }}</label>
+                                                {{ form.date }}
+                                            </div>
+                                            {% if form.date.errors %}
+                                                <div class="text-danger text-sm">{{ form.date.errors }}</div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="input-group input-group-outline mb-3">
+                                                <label class="form-label">{{ form.cash_in.label }}</label>
+                                                {{ form.cash_in }}
+                                            </div>
+                                            {% if form.cash_in.errors %}
+                                                <div class="text-danger text-sm">{{ form.cash_in.errors }}</div>
+                                            {% endif %}
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="input-group input-group-outline mb-3">
+                                                <label class="form-label">{{ form.cash_out.label }}</label>
+                                                {{ form.cash_out }}
+                                            </div>
+                                            {% if form.cash_out.errors %}
+                                                <div class="text-danger text-sm">{{ form.cash_out.errors }}</div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="input-group input-group-outline mb-3">
+                                                <label class="form-label">{{ form.references.label }}</label>
+                                                {{ form.references }}
+                                            </div>
+                                            {% if form.references.errors %}
+                                                <div class="text-danger text-sm">{{ form.references.errors }}</div>
+                                            {% endif %}
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="input-group input-group-outline mb-3">
+                                                <label class="form-label">{{ form.khata.label }}</label>
+                                                {{ form.khata }}
+                                            </div>
+                                            {% if form.khata.errors %}
+                                                <div class="text-danger text-sm">{{ form.khata.errors }}</div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="input-group input-group-outline mb-3">
+                                        <label class="form-label">{{ form.description.label }}</label>
+                                        {{ form.description }}
+                                    </div>
+                                    {% if form.description.errors %}
+                                        <div class="text-danger text-sm">{{ form.description.errors }}</div>
+                                    {% endif %}
+                                    
+                                    <div class="text-center">
+                                        <button type="submit" class="btn bg-gradient-warning w-50 my-4 mb-2">Update Entry</button>
+                                        <a href="{% url 'accounts:roznamcha_list' %}" class="btn btn-outline-secondary w-25 mb-2">Cancel</a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock content %}

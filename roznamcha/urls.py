@@ -1,10 +1,9 @@
-
-from django.contrib import admin
 from django.urls import path
-from .views import DashboardView, Roznamcha, AccountsView
+from . import views
+
+app_name = 'roznamcha'
 
 urlpatterns = [
-    path('', DashboardView.as_view(), name='dashboard'),
-    path('roznamcha/', Roznamcha.as_view(), name='roznamcha'),
-    path('accounts/', AccountsView.as_view(), name='accounts'),
+    # Additional roznamcha-specific functionality can be added here
+    # Main roznamcha functionality is handled in accounts app
 ]

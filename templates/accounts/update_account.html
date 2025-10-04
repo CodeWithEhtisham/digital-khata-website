@@ -1,0 +1,114 @@
+{% extends '../base.html'%}
+{% load static %}
+
+{% block content %}
+<main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+    <!-- Navbar -->
+    {% include '../header.html'%}
+    <!-- End Navbar -->
+    <div class="container-fluid py-4">
+        <div class="row">
+            <div class="col-12">
+                <div class="card my-4">
+                    <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                        <div class="bg-gradient-info shadow-info border-radius-lg pt-4 pb-3">
+                            <h6 class="text-white text-capitalize ps-3">Update Account</h6>
+                        </div>
+                    </div>
+                    <div class="card-body px-0 pb-2">
+                        <div class="row">
+                            <div class="col-md-8 mx-auto">
+                                <form method="post">
+                                    {% csrf_token %}
+                                    
+                                    {% if form.non_field_errors %}
+                                        <div class="alert alert-danger" role="alert">
+                                            {{ form.non_field_errors }}
+                                        </div>
+                                    {% endif %}
+                                    
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="input-group input-group-outline mb-3">
+                                                <label class="form-label">{{ form.name.label }}</label>
+                                                {{ form.name }}
+                                            </div>
+                                            {% if form.name.errors %}
+                                                <div class="text-danger text-sm">{{ form.name.errors }}</div>
+                                            {% endif %}
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="input-group input-group-outline mb-3">
+                                                <label class="form-label">{{ form.phone.label }}</label>
+                                                {{ form.phone }}
+                                            </div>
+                                            {% if form.phone.errors %}
+                                                <div class="text-danger text-sm">{{ form.phone.errors }}</div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="input-group input-group-outline mb-3">
+                                                <label class="form-label">{{ form.khata.label }}</label>
+                                                {{ form.khata }}
+                                            </div>
+                                            {% if form.khata.errors %}
+                                                <div class="text-danger text-sm">{{ form.khata.errors }}</div>
+                                            {% endif %}
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="input-group input-group-outline mb-3">
+                                                <label class="form-label">{{ form.balance_type.label }}</label>
+                                                {{ form.balance_type }}
+                                            </div>
+                                            {% if form.balance_type.errors %}
+                                                <div class="text-danger text-sm">{{ form.balance_type.errors }}</div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="input-group input-group-outline mb-3">
+                                                <label class="form-label">{{ form.balance.label }}</label>
+                                                {{ form.balance }}
+                                            </div>
+                                            {% if form.balance.errors %}
+                                                <div class="text-danger text-sm">{{ form.balance.errors }}</div>
+                                            {% endif %}
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="input-group input-group-outline mb-3">
+                                                <label class="form-label">{{ form.opening_balance.label }}</label>
+                                                {{ form.opening_balance }}
+                                            </div>
+                                            {% if form.opening_balance.errors %}
+                                                <div class="text-danger text-sm">{{ form.opening_balance.errors }}</div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="input-group input-group-outline mb-3">
+                                        <label class="form-label">{{ form.address.label }}</label>
+                                        {{ form.address }}
+                                    </div>
+                                    {% if form.address.errors %}
+                                        <div class="text-danger text-sm">{{ form.address.errors }}</div>
+                                    {% endif %}
+                                    
+                                    <div class="text-center">
+                                        <button type="submit" class="btn bg-gradient-info w-50 my-4 mb-2">Update Account</button>
+                                        <a href="{% url 'accounts:account_list' %}" class="btn btn-outline-secondary w-25 mb-2">Cancel</a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock content %}

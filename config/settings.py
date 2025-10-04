@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-*pnu(9v@4rmfidyo*vautr@_(s2)v38*h!hwd@asbbfd(4a7ul
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '0.0.0.0']
 
 
 # Application definition
@@ -37,8 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
     'accounts',
     'roznamcha',
+    'business',
 ]
 
 MIDDLEWARE = [
@@ -107,9 +109,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en-pk'  # English (Pakistan)
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Karachi'  # Pakistan Standard Time
 
 USE_I18N = True
 
@@ -136,3 +138,11 @@ MEDIA_URL = "/media/"
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Custom User Model
+AUTH_USER_MODEL = 'accounts.User'
+
+# Authentication URLs
+LOGIN_URL = '/sign-in/'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/sign-in/'

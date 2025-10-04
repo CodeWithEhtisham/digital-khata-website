@@ -1,0 +1,157 @@
+{% extends '../base.html'%}
+{% load static %}
+
+{% block content %}
+<main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+    <!-- Navbar -->
+    {% include '../header.html'%}
+    <!-- End Navbar -->
+    <div class="container-fluid py-4">
+        <div class="row">
+            <div class="col-12">
+                <div class="card my-4">
+                    <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                        <div class="bg-gradient-info shadow-info border-radius-lg pt-4 pb-3">
+                            <div class="row">
+                                <div class="col-6">
+                                    <h6 class="text-white text-capitalize ps-3">{{ account.name }} - Account Details</h6>
+                                </div>
+                                <div class="col-6 text-end">
+                                    <a href="{% url 'accounts:update_account' account.pk %}" class="btn btn-outline-white btn-sm mb-0 me-3">
+                                        <i class="material-icons text-sm">edit</i>&nbsp;&nbsp;Edit Account
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body px-0 pb-2">
+                        <!-- Account Information -->
+                        <div class="row px-4 mb-4">
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h6 class="mb-3">Account Information</h6>
+                                        <p class="text-sm mb-2"><strong>Name:</strong> {{ account.name }}</p>
+                                        <p class="text-sm mb-2"><strong>Phone:</strong> {{ account.phone|default:"-" }}</p>
+                                        <p class="text-sm mb-2"><strong>Address:</strong> {{ account.address|default:"-" }}</p>
+                                        <p class="text-sm mb-2"><strong>Khata:</strong> {{ account.khata.khata_name }}</p>
+                                        <p class="text-sm mb-2"><strong>Balance Type:</strong> {{ account.get_balance_type_display }}</p>
+                                        <p class="text-sm mb-0"><strong>Opening Balance:</strong> Rs. {{ account.opening_balance|floatformat:2 }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h6 class="mb-3">Balance Summary</h6>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <p class="text-sm mb-2"><strong>Current Balance:</strong></p>
+                                                <h5 class="text-{% if account.balance_type == 'DEBIT' %}success{% else %}danger{% endif %} font-weight-bolder">
+                                                    Rs. {{ account.balance|floatformat:2 }}
+                                                </h5>
+                                            </div>
+                                            <div class="col-6">
+                                                <p class="text-sm mb-2"><strong>Cash In:</strong></p>
+                                                <p class="text-success font-weight-bold">Rs. {{ total_cash_in|floatformat:2 }}</p>
+                                                <p class="text-sm mb-2"><strong>Cash Out:</strong></p>
+                                                <p class="text-danger font-weight-bold">Rs. {{ total_cash_out|floatformat:2 }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Transaction History -->
+                        <div class="row px-4">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-header pb-0">
+                                        <div class="row">
+                                            <div class="col-lg-6 col-7">
+                                                <h6>Transaction History</h6>
+                                                <p class="text-sm mb-0">
+                                                    <i class="fa fa-check text-info" aria-hidden="true"></i>
+                                                    <span class="font-weight-bold ms-1">{{ entries.count }}</span> transactions
+                                                </p>
+                                            </div>
+                                            <div class="col-lg-6 col-5 my-auto text-end">
+                                                <a href="{% url 'accounts:create_roznamcha' %}" class="btn btn-outline-primary btn-sm">
+                                                    <i class="material-icons text-sm">add</i>&nbsp;&nbsp;Add Entry
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body px-0 pb-2">
+                                        <div class="table-responsive p-0">
+                                            <table class="table align-items-center mb-0">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Date</th>
+                                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Description</th>
+                                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Cash In</th>
+                                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Cash Out</th>
+                                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Remaining</th>
+                                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Actions</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {% for entry in entries %}
+                                                    <tr>
+                                                        <td>
+                                                            <div class="d-flex px-2 py-1">
+                                                                <div class="d-flex flex-column justify-content-center">
+                                                                    <h6 class="mb-0 text-sm">{{ entry.date|date:"M d, Y" }}</h6>
+                                                                    <p class="text-xs text-secondary mb-0">{{ entry.date|date:"D" }}</p>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <p class="text-xs font-weight-bold mb-0">{{ entry.description|default:"-" }}</p>
+                                                            <p class="text-xs text-secondary mb-0">{{ entry.references|default:"-" }}</p>
+                                                        </td>
+                                                        <td class="align-middle text-center">
+                                                            {% if entry.cash_in %}
+                                                            <span class="badge badge-sm bg-gradient-success">Rs. {{ entry.cash_in|floatformat:2 }}</span>
+                                                            {% else %}
+                                                            <span class="text-secondary">-</span>
+                                                            {% endif %}
+                                                        </td>
+                                                        <td class="align-middle text-center">
+                                                            {% if entry.cash_out %}
+                                                            <span class="badge badge-sm bg-gradient-danger">Rs. {{ entry.cash_out|floatformat:2 }}</span>
+                                                            {% else %}
+                                                            <span class="text-secondary">-</span>
+                                                            {% endif %}
+                                                        </td>
+                                                        <td class="align-middle text-center">
+                                                            <span class="text-secondary text-xs font-weight-bold">Rs. {{ entry.remaining|floatformat:2 }}</span>
+                                                        </td>
+                                                        <td class="align-middle text-center">
+                                                            <a href="{% url 'accounts:update_roznamcha' entry.pk %}" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit entry">
+                                                                <i class="material-icons text-sm">edit</i>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                    {% empty %}
+                                                    <tr>
+                                                        <td colspan="6" class="text-center py-4">
+                                                            <p class="text-secondary mb-0">No transactions found for this account.</p>
+                                                        </td>
+                                                    </tr>
+                                                    {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock content %}

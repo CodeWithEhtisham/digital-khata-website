@@ -1,0 +1,108 @@
+{% extends '../base.html'%}
+{% load static %}
+
+{% block content %}
+<main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+    <!-- Navbar -->
+    {% include '../header.html'%}
+    <!-- End Navbar -->
+    <div class="container-fluid py-4">
+        <div class="row">
+            <div class="col-12">
+                <div class="card my-4">
+                    <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                        <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                            <h6 class="text-white text-capitalize ps-3">Create New Account</h6>
+                        </div>
+                    </div>
+                    <div class="card-body px-0 pb-2">
+                        <div class="row">
+                            <div class="col-md-8 mx-auto">
+                                <form method="post">
+                                    {% csrf_token %}
+                                    
+                                    {% if form.non_field_errors %}
+                                        <div class="alert alert-danger" role="alert">
+                                            {{ form.non_field_errors }}
+                                        </div>
+                                    {% endif %}
+                                    
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="input-group input-group-outline mb-3">
+                                                <input type="text" name="name" class="form-control" placeholder="Account Name" value="{{ form.name.value|default:'' }}" required>
+                                            </div>
+                                            {% if form.name.errors %}
+                                                <div class="text-danger text-sm mt-1">{{ form.name.errors.0 }}</div>
+                                            {% endif %}
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="input-group input-group-outline mb-3">
+                                                <input type="text" name="phone" class="form-control" placeholder="Phone Number" value="{{ form.phone.value|default:'' }}">
+                                            </div>
+                                            {% if form.phone.errors %}
+                                                <div class="text-danger text-sm mt-1">{{ form.phone.errors.0 }}</div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="input-group input-group-outline mb-3">
+                                                <select name="khata" class="form-control" required>
+                                                    <option value="">Select Khata</option>
+                                                    {% for khata in form.khata.field.queryset %}
+                                                        <option value="{{ khata.id }}" {% if form.khata.value == khata.id|stringformat:"s" %}selected{% endif %}>{{ khata.khata_name }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                            {% if form.khata.errors %}
+                                                <div class="text-danger text-sm mt-1">{{ form.khata.errors.0 }}</div>
+                                            {% endif %}
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="input-group input-group-outline mb-3">
+                                                <select name="balance_type" class="form-control" required>
+                                                    <option value="">Select Account Type</option>
+                                                    <option value="DEBIT" {% if form.balance_type.value == 'DEBIT' %}selected{% endif %}>Receivable (Customer owes us)</option>
+                                                    <option value="CREDIT" {% if form.balance_type.value == 'CREDIT' %}selected{% endif %}>Payable (We owe them)</option>
+                                                </select>
+                                            </div>
+                                            {% if form.balance_type.errors %}
+                                                <div class="text-danger text-sm mt-1">{{ form.balance_type.errors.0 }}</div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="input-group input-group-outline mb-3">
+                                                <input type="number" name="balance" class="form-control" step="0.01" placeholder="Opening Balance (Optional)" value="{{ form.balance.value|default:'' }}">
+                                            </div>
+                                            {% if form.balance.errors %}
+                                                <div class="text-danger text-sm mt-1">{{ form.balance.errors.0 }}</div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="input-group input-group-outline mb-3">
+                                        <textarea name="address" class="form-control" rows="3" placeholder="Address (Optional)">{{ form.address.value|default:'' }}</textarea>
+                                    </div>
+                                    {% if form.address.errors %}
+                                        <div class="text-danger text-sm mt-1">{{ form.address.errors.0 }}</div>
+                                    {% endif %}
+                                    
+                                    <div class="text-center">
+                                        <button type="submit" class="btn bg-gradient-primary w-50 my-4 mb-2">Create Account</button>
+                                        <a href="{% url 'accounts:account_list' %}" class="btn btn-outline-secondary w-25 mb-2">Cancel</a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock content %}
